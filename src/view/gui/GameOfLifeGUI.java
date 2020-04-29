@@ -2,7 +2,11 @@ package view.gui;
 
 import common.Controller;
 import controller.GameOfLifeController;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import model.GameOfLifeModel;
 import model.LifeUpdate;
 import common.Model;
@@ -16,17 +20,20 @@ import java.util.List;
 public class GameOfLifeGUI extends Application implements Observer {
 
     public static final int WINDOW_DIM = 600;
+    public static final String PLAY_BTN = "/home/wiley/java_projects/GameOfLife/src/view/gui/assets/pokeball.png";
 
     private Controller controller;
     private Model model;
     private GridPane grid;
     private InfoArea infoArea;
     private OrganismButton[][] buttons;
+    private Label statusLabel;
 
     @Override
     public void init() {
         List<String> args = getParameters().getRaw();
         this.model = new GameOfLifeModel(Integer.parseInt(args.get(0)));
+        this.model.addObserver(this);
         this.controller = new GameOfLifeController(model);
     }
 
@@ -40,14 +47,37 @@ public class GameOfLifeGUI extends Application implements Observer {
                 grid.add(buttons[i][j], j, i);
             }
         }
-        Scene scene = new Scene(grid, WINDOW_DIM, WINDOW_DIM);
+
+        PlayButton pb = new PlayButton(controller);
+        statusLabel = new Label(model.getStatus().toString());
+        HBox hb = new HBox();
+        hb.getChildren().addAll(pb, statusLabel);
+
+        BorderPane bp = new BorderPane();
+        bp.setCenter(grid);
+        bp.setTop(hb);
+        Scene scene = new Scene(bp, WINDOW_DIM, WINDOW_DIM);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
+    }
+
+    private void updateStatus() {
+        statusLabel.setText(model.getStatus().toString());
+    }
+
+    private void _update(LifeUpdate update) {
+        if (update != null) {
+            // do board stuff
+        }
+        updateStatus();
     }
 
     @Override
     public void update(LifeUpdate update) {
-
+        Platform.runLater(() -> {
+            _update(update);
+        });
     }
 
     @Override
