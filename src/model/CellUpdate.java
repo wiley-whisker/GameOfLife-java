@@ -1,11 +1,11 @@
 package model;
 
-public class TileUpdate {
+public class CellUpdate {
     private final int i;
     private final int j;
     private final boolean hasOrg;
 
-    public TileUpdate(boolean hasOrg, int i, int j) {
+    public CellUpdate(boolean hasOrg, int i, int j) {
         this.hasOrg = hasOrg;
         this.i = i;
         this.j = j;

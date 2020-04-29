@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import model.CellUpdate;
 import model.GameOfLifeModel;
 import model.LifeUpdate;
 import common.Model;
@@ -66,15 +67,15 @@ public class GameOfLifeGUI extends Application implements Observer {
         statusLabel.setText(model.getStatus().toString());
     }
 
-    private void _update(LifeUpdate update) {
+    private void _update(CellUpdate update) {
         if (update != null) {
-            // do board stuff
+            buttons[update.getI()][update.getJ()].setOrganism(update.hasOrganism());
         }
         updateStatus();
     }
 
     @Override
-    public void update(LifeUpdate update) {
+    public void update(CellUpdate update) {
         Platform.runLater(() -> {
             _update(update);
         });

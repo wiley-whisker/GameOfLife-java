@@ -10,4 +10,5 @@ public interface Model {
     void playPause();
     void setStatus(GameOfLifeModel.STATUS stat);
     GameOfLifeModel.STATUS getStatus();
+    boolean[][] getBoard();
 }

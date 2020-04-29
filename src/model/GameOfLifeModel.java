@@ -2,6 +2,7 @@ package model;
 
 import common.Model;
 import common.Observer;
+import controller.ControllerThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class GameOfLifeModel implements Model {
         this.observers.add(obs);
     }
 
-    private void updateObservers(LifeUpdate update) {
+    private void updateObservers(CellUpdate update) {
         for (Observer o : this.observers) {
             o.update(update);
         }
@@ -47,13 +48,26 @@ public class GameOfLifeModel implements Model {
     }
 
     @Override
-    public void addOrganism(int i, int j) {
+    public boolean[][] getBoard() {
+        return board;
+    }
 
+    @Override
+    public void addOrganism(int i, int j) {
+        if (!board[i][j]) {
+            // do something
+            board[i][j] = true;
+            updateObservers(new CellUpdate(true, i, j));
+        }
     }
 
     @Override
     public void removeOrganism(int i, int j) {
-
+        if (board[i][j]) {
+            // do something
+            board[i][j] = false;
+            updateObservers(new CellUpdate(false, i, j));
+        }
     }
 
     @Override

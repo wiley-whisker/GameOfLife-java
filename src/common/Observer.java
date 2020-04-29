@@ -1,7 +1,7 @@
 package common;
 
-import model.LifeUpdate;
+import model.CellUpdate;
 
 public interface Observer {
-    void update(LifeUpdate update);
+    void update(CellUpdate update);
 }

@@ -25,17 +25,22 @@ public class OrganismButton extends Button {
         this.controller = controller;
         this.setBackground(BLACK);
         setMinSize((double)GameOfLifeGUI.WINDOW_DIM/DIM, (double)GameOfLifeGUI.WINDOW_DIM/DIM);
-        setOnAction((event) -> {
-            System.out.println("ya boi " + i + j + " here");
-            setOrganism(!hasOrg);
-        });
+        setOrganism(hasOrg);
     }
 
     public void setOrganism(boolean hasOrg) {
         this.hasOrg = hasOrg;
         if (hasOrg) {
+            setOnAction((event) -> {
+                System.out.println("ya boi " + i + j + " here");
+                controller.removeOrganism(i,j);
+            });
             setBackground(WHITE);
         } else {
+            setOnAction((event) -> {
+                System.out.println("ya boi " + i + j + " here");
+                controller.addOrganism(i,j);
+            });
             setBackground(BLACK);
         }
     }

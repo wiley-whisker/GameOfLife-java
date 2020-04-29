@@ -2,7 +2,6 @@ package controller;
 
 import common.Controller;
 import common.Model;
-import model.GameOfLifeModel;
 import model.GameOfLifeModel.STATUS;
 
 public class GameOfLifeController implements Controller {
@@ -37,7 +36,14 @@ public class GameOfLifeController implements Controller {
         } else {
             // start running
             status = STATUS.PLAY;
+            Thread t = new Thread(new ControllerThread(model, this));
+            t.start();
         }
         model.setStatus(status);
+    }
+
+    @Override
+    public STATUS getStatus() {
+        return status;
     }
 }

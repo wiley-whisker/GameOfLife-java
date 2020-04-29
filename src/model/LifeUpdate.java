@@ -4,17 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LifeUpdate {
-    private List<TileUpdate> updates;
+    private List<CellUpdate> updates;
 
     public LifeUpdate() {
-        updates = new LinkedList<TileUpdate>();
+        updates = new LinkedList<CellUpdate>();
     }
 
     public void addUpdate(boolean hasOrg, int i, int j) {
-        updates.add(new TileUpdate(hasOrg, i, j));
+        updates.add(new CellUpdate(hasOrg, i, j));
     }
 
-    public List<TileUpdate> getUpdates() {
+    public List<CellUpdate> getUpdates() {
         return updates;
     }
 }
