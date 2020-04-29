@@ -17,14 +17,14 @@ public class OrganismButton extends Button {
     private int j;
     private Controller controller;
 
-    public OrganismButton(int i, int j, Controller controller) {
+    public OrganismButton(int i, int j, int DIM, Controller controller) {
         super();
         this.hasOrg = false;
         this.i = i;
         this.j = j;
         this.controller = controller;
         this.setBackground(BLACK);
-        setMinSize(50, 50);
+        setMinSize((double)GameOfLifeGUI.WINDOW_DIM/DIM, (double)GameOfLifeGUI.WINDOW_DIM/DIM);
         setOnAction((event) -> {
             System.out.println("ya boi " + i + j + " here");
             setOrganism(!hasOrg);

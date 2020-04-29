@@ -15,6 +15,8 @@ import java.util.List;
 
 public class GameOfLifeGUI extends Application implements Observer {
 
+    public static final int WINDOW_DIM = 600;
+
     private Controller controller;
     private Model model;
     private GridPane grid;
@@ -34,11 +36,11 @@ public class GameOfLifeGUI extends Application implements Observer {
         this.grid = new GridPane();
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
-                buttons[i][j] = new OrganismButton(i, j, this.controller);
+                buttons[i][j] = new OrganismButton(i, j, model.getDIM(), this.controller);
                 grid.add(buttons[i][j], j, i);
             }
         }
-        Scene scene = new Scene(grid, 400, 400);
+        Scene scene = new Scene(grid, WINDOW_DIM, WINDOW_DIM);
         stage.setScene(scene);
         stage.show();
     }
